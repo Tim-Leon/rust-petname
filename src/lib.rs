@@ -100,7 +100,7 @@ use alloc::{
     string::{String, ToString},
     vec::Vec,
 };
-
+use rand::prelude::IndexedRandom;
 use rand::seq::{IteratorRandom, SliceRandom};
 
 /// Convenience function to generate a new petname from default word lists.
@@ -151,7 +151,7 @@ pub trait Generator<'a> {
     /// when you want to use a custom source of randomness.
     #[cfg(feature = "default-rng")]
     fn generate_one(&self, words: u8, separator: &str) -> Option<String> {
-        self.generate(&mut rand::thread_rng(), words, separator)
+        self.generate(&mut rand::rngs::ThreadRng::default(), words, separator)
     }
 
     /// Iterator yielding petnames.

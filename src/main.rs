@@ -9,10 +9,8 @@ use std::fs;
 use std::io;
 use std::path;
 use std::process;
-
 use clap::Parser;
 use rand::SeedableRng;
-
 fn main() {
     let cli = Cli::parse();
 
@@ -95,7 +93,7 @@ where
 
     // We're going to need a source of randomness.
     let mut rng =
-        cli.seed.map(rand::rngs::StdRng::seed_from_u64).unwrap_or_else(rand::rngs::StdRng::from_entropy);
+        cli.seed.map(rand::rngs::StdRng::seed_from_u64).unwrap_or_else(rand::rngs::StdRng::from_os_rng);
 
     // Stream, or print a limited number of words?
     let count = if cli.stream { None } else { Some(cli.count) };
